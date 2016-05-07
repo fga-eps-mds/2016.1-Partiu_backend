@@ -55,16 +55,16 @@ user9 = User.find 9
 user10 = User.find 10
 
 # Setar usuario como motorista ou passageiro
-user1.passager = Passager.create!()
-user2.passager = Passager.create!()
-user3.passager = Passager.create!()
-user4.passager = Passager.create!()
-user5.passager = Passager.create!()
-user6.passager = Passager.create!()
-user7.passager = Passager.create!()
-user8.passager = Passager.create!()
-user9.passager = Passager.create!()
-user10.passager = Passager.create!()
+user1.passenger = Passenger.create!()
+user2.passenger = Passenger.create!()
+user3.passenger = Passenger.create!()
+user4.passenger = Passenger.create!()
+user5.passenger = Passenger.create!()
+user6.passenger = Passenger.create!()
+user7.passenger = Passenger.create!()
+user8.passenger = Passenger.create!()
+user9.passenger = Passenger.create!()
+user10.passenger = Passenger.create!()
 
 user1.driver = Driver.create!()
 user2.driver = Driver.create!()
@@ -97,11 +97,11 @@ user2.driver.rides << ride4 << ride1
 user7.driver.rides << ride2
 
 # Inserindo passageiros nas caronas do usuário driver
-user1.driver.rides[0].passagers << user3.passager << user4.passager
-user1.driver.rides[1].passagers << user8.passager << user10.passager
-user2.driver.rides[0].passagers << user3.passager << user9.passager << user8.passager
-user2.driver.rides[1].passagers << user3.passager << user4.passager << user7.passager << user10.passager
-user7.driver.rides[0].passagers << user1.passager
+user1.driver.rides[0].passengers << user3.passenger << user4.passenger
+user1.driver.rides[1].passengers << user8.passenger << user10.passenger
+user2.driver.rides[0].passengers << user3.passenger << user9.passenger << user8.passenger
+user2.driver.rides[1].passengers << user3.passenger << user4.passenger << user7.passenger << user10.passenger
+user7.driver.rides[0].passengers << user1.passenger
 
 # Passageiro pesquisa carona e aperta para entrar,solicitando vaga ao driver
-user3.passager.rides << ride2
+user3.passenger.rides << ride2
