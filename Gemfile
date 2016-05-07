@@ -4,6 +4,12 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
+# Connection different domain between back-end rails and front-end ionic
+gem 'rack-cors', :require => 'rack/cors'
+# A gem for delegate attributes and associations of belongs_to and has_one!
+gem 'delegate_associations'
+# Brings convention over configuration to your JSON generation.
+gem 'active_model_serializers'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
