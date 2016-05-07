@@ -33,13 +33,13 @@ User.create!([
 ])
 
 Vehicle.create!([
-    {car_model: "Celta", color: "preto", description: "Carro preto, placa X com 2 adesivos colado na traseira"},
-    {car_model: "Fiat Uno", color: "prata", description: "Carro prata, placa X"},
-    {car_model: "CrossFox", color: "prata", description: "Carro prata,com 1 adesivos da nike colado no vidro"},
-    {car_model: "Fusca", color: "preto", description: "Fuscão pretoooo, ele é feito de aço"},
-    {car_model: "Triton", color: "preto fosco", description: "Carro preto fosco, com roda aro 20"},
-    {car_model: "Veloster", color: "branco", description: "Carro branco"},
-    {car_model: "Ferrari", color: "vermelho", description: ""}
+    {car_model: "Celta", color: "preto"},
+    {car_model: "Fiat Uno", color: "prata"},
+    {car_model: "CrossFox", color: "prata"},
+    {car_model: "Fusca", color: "preto"},
+    {car_model: "Triton", color: "preto fosco"},
+    {car_model: "Veloster", color: "branco"},
+    {car_model: "Ferrari", color: "vermelho"}
 ])
 
 # Criar usuários

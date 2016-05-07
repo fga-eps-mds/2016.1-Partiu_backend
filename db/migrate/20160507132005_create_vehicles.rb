@@ -3,7 +3,6 @@ class CreateVehicles < ActiveRecord::Migration
     create_table :vehicles do |t|
       t.string :color
       t.string :car_model
-      t.text :description
       t.belongs_to :driver, index: true
 
       t.timestamps null: false
