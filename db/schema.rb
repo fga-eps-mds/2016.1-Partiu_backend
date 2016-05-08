@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 20160507133025) do
     t.string   "origin"
     t.string   "destiny"
     t.integer  "total_seats"
-    t.datetime "departure_time"
-    t.datetime "return_time"
+    t.string   "departure_time"
+    t.string   "return_time"
     t.boolean  "is_finished"
     t.boolean  "is_subsistence_allowance"
     t.boolean  "is_only_departure"
@@ -76,10 +76,9 @@ ActiveRecord::Schema.define(version: 20160507133025) do
   create_table "vehicles", force: :cascade do |t|
     t.string   "color"
     t.string   "car_model"
-    t.text     "description"
     t.integer  "driver_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "vehicles", ["driver_id"], name: "index_vehicles_on_driver_id", using: :btree

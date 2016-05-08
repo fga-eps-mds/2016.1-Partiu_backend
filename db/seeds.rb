@@ -3,19 +3,19 @@
 
 Ride.create!([
   {title: "Carona Solidaria", origin: "Cruzeiro Novo", destiny: "UnB Gama", total_seats: 4,
-  departure_time: Time.now, return_time: Time.now, is_finished: true, is_subsistence_allowance: false, is_only_departure: false,
+  departure_time: "11h", return_time: "18h", is_finished: true, is_subsistence_allowance: false, is_only_departure: false,
   description: "Carona solidaria para a unb do gama", vehicle_id: 2},
   {title: "Carona muito doida", origin: "UnB gama", destiny: "Samambaia", total_seats: 3,
-  departure_time: Time.now, is_finished: false, is_subsistence_allowance: true, is_only_departure: true,
+  departure_time: "19h", is_finished: false, is_subsistence_allowance: true, is_only_departure: true,
   description: "Carona para samambaia", vehicle_id: 7},
   {title: "Viagem Pra Caldas", origin: "Rodoviaria de brasilia", destiny: "Caldas Novas", total_seats: 2,
-  departure_time: Time.now, return_time: Time.now, is_finished: true, is_subsistence_allowance: true, is_only_departure: false,
+  departure_time: "07h", return_time: "23h", is_finished: true, is_subsistence_allowance: true, is_only_departure: false,
   description: "Viagem muito doida", vehicle_id: 1},
   {title: "Carona Intercampis", origin: "UnB Darcy", destiny: "UnB Gama", total_seats: 4,
-  departure_time: Time.now, return_time: Time.now, is_finished: true, is_subsistence_allowance: false, is_only_departure: false,
+  departure_time: "15h", return_time: "18h", is_finished: true, is_subsistence_allowance: false, is_only_departure: false,
   description: "Carona solidaria entre campos da unb", vehicle_id: 2},
   {title: "Carona Solidaria", origin: "Cruzeiro Novo", destiny: "UnB Darcy", total_seats: 3,
-  departure_time: Time.now, return_time: Time.now, is_finished: false, is_subsistence_allowance: true, is_only_departure: false,
+  departure_time: "08h", return_time: "16h", is_finished: false, is_subsistence_allowance: true, is_only_departure: false,
   description: "Carona solidaria para a unb darcy", vehicle_id: 1}
 ])
 
