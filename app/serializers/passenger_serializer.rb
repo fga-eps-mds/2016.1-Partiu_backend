@@ -1,5 +1,5 @@
 class PassengerSerializer < ActiveModel::Serializer
-  attributes :id, :name, :photo_url
+  attributes :id, :user_id
 
   has_many :rides
 end
