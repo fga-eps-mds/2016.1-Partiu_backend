@@ -1,5 +1,5 @@
 class RidesController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: [:create, :update, :destroy]
+  skip_before_filter :verify_authenticity_token
   before_action :set_user, only: [:index, :create, :show, :edit, :update, :destroy]
   before_action :set_ride, only: [:show, :edit, :update, :destroy]
 
