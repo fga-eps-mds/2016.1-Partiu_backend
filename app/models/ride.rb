@@ -8,11 +8,10 @@ class Ride < ActiveRecord::Base
 
   validates :description, length: {maximum: 300}
 
-  validates :total_seats, length: {in: 1..8},
-                          numericality: { only_integer: true },
-                          presence: true
+  validates :total_seats, presence: true,
+    numericality: {only_integer:true, greater_than_or_equal_to: 1, less_than_or_equal_to: 8}
 
   validates :origin, :destiny, :departure_time, presence: true
-
+  validates :driver_id, presence: true
 
 end

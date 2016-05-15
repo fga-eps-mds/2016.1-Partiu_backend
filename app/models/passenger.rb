@@ -8,4 +8,5 @@ class Passenger < ActiveRecord::Base
 
   delegate_associations to: :user
   delegate_attributes to: :user
+  validates :user_id, presence: true
 end

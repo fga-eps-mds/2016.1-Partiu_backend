@@ -11,4 +11,9 @@ FactoryGirl.define do
     destiny "FGA Gama"
     departure_time Time.new
   end
+
+  factory "vehicle" do
+    color "Blackk"
+    car_model "Nice cAr"
+  end
 end
