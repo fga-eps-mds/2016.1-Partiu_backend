@@ -2,6 +2,8 @@ FactoryGirl.define do
   factory :user do
     name "forbiddenuser"
     email "forbiddenuser@forbidden.com"
+    facebook_id 12314
+    photo_url "myawesomephotourl.com"
   end
 
   factory :ride do

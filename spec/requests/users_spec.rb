@@ -26,13 +26,24 @@ describe "Users" do
       expect(User.all.count).to eq(old_count+1)
     end
 
-    it "should not crease a new user if invalid attributes are given" do
+    it "should not create a new user if invalid attributes are given" do
       user = FactoryGirl.attributes_for(:user)
       user["email"] = ""
       old_count = User.all.count
       post "/api/users", {user: user}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       expect(User.all.count).to eq(old_count)
+    end
+
+    it "should create a driver and a passenger" do
+      user = FactoryGirl.attributes_for(:user)
+      post "/api/users", {user: user}, { "Accept" => "application/json" }
+      expect(response.status).to eq(200)
+      json_response = JSON.parse(response.body)
+      id = json_response["id"]
+      find_user = User.find(id)
+      expect(User.find(find_user.id).driver).to be_valid
+      expect(User.find(find_user.id).passenger).to be_valid
     end
   end
 end

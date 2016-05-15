@@ -1,14 +1,21 @@
 class RidesController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_action :set_user, only: [:index, :create, :show, :edit, :update, :destroy]
-  before_action :set_ride, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_ride, only: [:edit, :update, :destroy]
 
   def index
-    @rides = @user.driver.rides.all
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @rides = user.driver.rides.all
+    else
+      @rides = Ride.all
+    end
     render json: @rides
   end
 
   def show
+    ride_id = params[:ride_id] || params[:id]
+    @ride = Ride.find(ride_id)
     render json: @ride
   end
 
@@ -16,24 +23,15 @@ class RidesController < ApplicationController
   end
 
   def create
-    if @user.driver.nil?
-      @user.driver = Driver.new
-      @ride = @user.driver.rides.new(ride_params)
-    else
-      @ride = @user.driver.rides.new(ride_params)
-    end
-
-    @ride.origin = params["origin"]
-    @ride.title = params["title"]
-    @ride.departure_time = params["departure_time"]
-    @ride.destiny = params["destiny"]
+    @ride = Ride.new(ride_params)
+    user = User.find(params[:user_id])
+    @ride.driver = user.driver
 
     if (@ride.save)
       render json: @ride
     else
       render json: @ride.errors
     end
-
   end
 
   def update
@@ -61,8 +59,8 @@ class RidesController < ApplicationController
   def ride_params
     params.require(:ride).permit(:title, :origin, :destiny, :total_seats, :departure_time,
     :return_time, :is_finished, :is_subsistence_allow, :is_subsistence_allowance,
-    :is_only_departure, :description, :driver, :vehicle, :passengers_name, :passengers_photo,
-    :created_at, :updated_at)
+    :is_only_departure, :description, :vehicle, :passengers_name, :passengers_photo,
+    :created_at, :driver_id, :updated_at)
   end
 
   def vehicle_params
