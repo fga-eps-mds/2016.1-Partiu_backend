@@ -1,0 +1,2 @@
+describe "Rides" do
+end
