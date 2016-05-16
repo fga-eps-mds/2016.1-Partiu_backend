@@ -2,6 +2,8 @@ FactoryGirl.define do
   factory :user do
     name "forbiddenuser"
     email "forbiddenuser@forbidden.com"
+    facebook_id 12314
+    photo_url "myawesomephotourl.com"
   end
 
   factory :ride do
@@ -10,5 +12,10 @@ FactoryGirl.define do
     origin "Jardim do Ingá"
     destiny "FGA Gama"
     departure_time Time.new
+  end
+
+  factory "vehicle" do
+    color "Blackk"
+    car_model "Nice cAr"
   end
 end
