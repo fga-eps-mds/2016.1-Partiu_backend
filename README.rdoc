@@ -1,28 +1,31 @@
-== README
+= Partiu
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+{<img src="https://codeclimate.com/github/mdsgpp2016/backend/badges/gpa.svg" />}[https://codeclimate.com/github/mdsgpp2016/backend]
+{<img src="https://codeclimate.com/github/mdsgpp2016/backend/badges/coverage.svg" />}[https://codeclimate.com/github/mdsgpp2016/backend/coverage]
+
+== Descrição
+
+Aplicativo multiplataforma que permite pessoas com amigos em comum combinarem caronas.
 
 Things you may want to cover:
 
-* Ruby version
+== Dependências
 
-* System dependencies
+- Ruby (v2.3.1)
+  - Recomendamos a utilização do {RVM}[http://rvm.io/]
+- Rails (v4.2.5.2)
 
-* Configuration
+==  Configuração
 
-* Database creation
+=== Ambiente de Desenvolvimento
 
-* Database initialization
+ $ gem install bundler
+ $ bundler
+ $ rake db:create
+ $ rake db:migrate
+ $ rails s
 
-* How to run the test suite
+=== Executando os Testes
+ $ rspec
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+O resultado da cobertura de testes gerado após a execução dos testes encontra-se em: *coverage/index.html*
