@@ -37,9 +37,13 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
 end
 
 group :production do
-  gem 'unicorn'
+  gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
   gem 'pg'
 end
