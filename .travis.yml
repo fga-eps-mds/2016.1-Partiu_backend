@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+- 2.3.1
+addons:
+  code_climate:
+    repo_token: 5655cc143b1d2c8e2a16c93c3e76f7d2907ba751950da6e623f23ba413ad5e7b
+before_install:
+- openssl aes-256-cbc -K $encrypted_a1e1fbe313e3_key -iv $encrypted_a1e1fbe313e3_iv
+  -in deploy-key.enc -out ~/.ssh/id_rsa -d
+after_success:
+  - bundle exec cap production deploy
