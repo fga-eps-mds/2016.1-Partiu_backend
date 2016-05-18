@@ -23,11 +23,6 @@ class RidesController < ApplicationController
       @ride = @user.driver.rides.new(ride_params)
     end
 
-    @ride.origin = params["origin"]
-    @ride.title = params["title"]
-    @ride.departure_time = params["departure_time"]
-    @ride.destiny = params["destiny"]
-
     if (@ride.save)
       render json: @ride
     else
