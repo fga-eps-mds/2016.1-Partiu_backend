@@ -16,11 +16,15 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.passenger = Passenger.new
-    if (@user.save)
-      render json: @user
+    @facebook_user = User.where(facebook_id: @user.facebook_id)
+    if(@facebook_user.empty?)
+      if (@user.save)
+        render json: @user
+      else
+        render json: @user.errors
+      end
     else
-      render json: @user.errors
+      render json: @facebook_user.first
     end
   end
 
@@ -43,8 +47,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :login, :email, :phone, :gender, :facebook_id,
-    :link_profile, :photo_url, :token)
+    params.require(:user).permit(:name, :login, :email, :phone, :gender, :facebook_id, :link_profile, :photo_url, :token)
   end
 
   def default_serializer_options
