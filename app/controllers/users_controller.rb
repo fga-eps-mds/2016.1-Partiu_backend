@@ -46,8 +46,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :login, :email, :phone, :gender, :facebook_id,
-    :link_profile, :photo_url, :token)
+    params.require(:user).permit(:name, :login, :email, :phone, :gender, :facebook_id, :link_profile, :photo_url, :token)
   end
 
   def default_serializer_options
