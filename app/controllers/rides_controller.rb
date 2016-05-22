@@ -23,12 +23,9 @@ class RidesController < ApplicationController
   end
 
   def create
-    if @user.driver.nil?
-      @user.driver = Driver.new
-      @ride = @user.driver.rides.new(ride_params)
-    else
-      @ride = @user.driver.rides.new(ride_params)
-    end
+    @ride = Ride.new(ride_params)
+    user = User.find(params[:user_id])
+    @ride.driver = user.driver
 
     if (@ride.save)
       render json: @ride
