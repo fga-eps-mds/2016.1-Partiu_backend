@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :user do
     name "forbiddenuser"
     email "forbiddenuser@forbidden.com"
-    facebook_id 12314
+    facebook_id "12315"
     photo_url "myawesomephotourl.com"
   end
 
@@ -11,7 +11,7 @@ FactoryGirl.define do
     total_seats 3
     origin "Jardim do Ingá"
     destiny "FGA Gama"
-    departure_time Time.new
+    departure_time "11h"
   end
 
   factory "vehicle" do

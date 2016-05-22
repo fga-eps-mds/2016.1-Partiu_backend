@@ -2,10 +2,10 @@ class User < ActiveRecord::Base
   after_create :initialize_associations
 
   def initialize_associations
-    self.driver = Driver.new(user_id: self.id)
     self.passenger = Passenger.new(user_id: self.id)
-    self.driver.save
     self.passenger.save
+    self.driver = Driver.new(user_id: self.id)
+    self.driver.save
   end
 
   has_one :driver, dependent: :destroy
