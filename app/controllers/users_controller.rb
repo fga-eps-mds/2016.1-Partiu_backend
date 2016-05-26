@@ -24,18 +24,23 @@ class UsersController < ApplicationController
     end
   end
 
-  def update
-    if (@user.update(user_params))
-      render json: @user
-    else
-      render json: @user.errors
-    end
+  def get_user_id
+    user = User.find_by(facebook_id: params[:facebook_id])
+    render json: user.id
   end
 
-  def destroy
-    @user.destroy
-  end
-
+  # def update
+  #   if (@user.update(user_params))
+  #     render json: @user
+  #   else
+  #     render json: @user.errors
+  #   end
+  # end
+  #
+  # def destroy
+  #   @user.destroy
+  # end
+  #
   private
 
   def set_user
