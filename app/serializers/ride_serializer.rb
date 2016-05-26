@@ -1,7 +1,7 @@
 class RideSerializer < ActiveModel::Serializer
-  attributes :id, :title, :origin, :destiny, :distance, :time, :total_seats,
+  attributes :id, :title, :origin, :destiny, :distance, :date, :time, :total_seats,
   :departure_time, :return_time, :is_finished, :is_subsistence_allowance,
-  :kind_of_ride, :description, :driver, :vehicle,
+  :schedule_ride, :description, :driver, :vehicle,
   :passengers_name, :passengers_photo, :created_at, :updated_at
 
 

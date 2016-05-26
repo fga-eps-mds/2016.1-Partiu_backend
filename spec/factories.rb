@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :schedule do
+    
+  end
   factory :user do
     name "forbiddenuser"
     email "forbiddenuser@forbidden.com"

@@ -7,7 +7,7 @@ RSpec.describe Ride, :type => :model do
     @other_ride_attrs = FactoryGirl.attributes_for(:ride, driver: @user.driver)
   end
 
-  it { expect(@ride).to respond_to(:description, :title, :origin, :total_seats, :is_finished, :is_subsistence_allowance, :is_only_departure, :driver_id, :vehicle_id) }
+  it { expect(@ride).to respond_to(:id, :title, :origin, :destiny, :total_seats, :departure_time, :return_time, :distance, :time, :date, :is_finished, :is_subsistence_allowance, :schedule_ride, :description, :vehicle_id, :driver_id) }
 
   describe "attributes:" do
 
