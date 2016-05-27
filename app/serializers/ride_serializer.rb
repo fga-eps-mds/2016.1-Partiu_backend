@@ -1,9 +1,10 @@
 class RideSerializer < ActiveModel::Serializer
-  attributes :id, :title, :origin, :destiny, :distance, :date, :time, :total_seats,
-  :departure_time, :return_time, :is_finished, :is_subsistence_allowance,
-  :schedule_ride, :description, :driver, :vehicle,
-  :passengers_name, :passengers_photo, :created_at, :updated_at
+  attributes :id, :title, :origin, :destiny, :route_distance, :route_time, :total_seats,
+  :schedule_ride, :is_finished, :is_subsistence_allowance, :description, :driver,
+  :vehicle, :passengers_name, :passengers_photo, :created_at, :updated_at
 
+
+  has_many :schedules
 
   def passengers_name
     object.passengers.map do |passenger|

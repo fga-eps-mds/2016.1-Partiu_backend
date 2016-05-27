@@ -70,8 +70,8 @@ class RidesController < ApplicationController
   end
 
   def ride_params
-    params.require(:ride).permit(:title, :origin, :destiny, :distance, :date, :time, 
-      :total_seats, :departure_time, :return_time, :is_finished, :is_subsistence_allowance, 
+    params.require(:ride).permit(:title, :origin, :destiny, :route_distance, 
+      :route_time, :total_seats, :is_finished, :is_subsistence_allowance, 
       :schedule_ride, :description, :driver, :vehicle, :passengers_name, 
       :passengers_photo, :created_at, :updated_at)
   end

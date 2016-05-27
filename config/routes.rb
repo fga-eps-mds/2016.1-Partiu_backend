@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   scope "/api" do
     resources :users do
-      resources :rides
+      resources :rides do
+        resources :schedules do
+          resources :day_of_weeks
+        end
+      end
       resources :vehicles
     end
 

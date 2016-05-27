@@ -1,7 +1,11 @@
 FactoryGirl.define do
-  factory :schedule do
+  factory :day_of_week do
     
   end
+  
+  factory :schedule do
+  end
+
   factory :user do
     name "forbiddenuser"
     email "forbiddenuser@forbidden.com"
@@ -11,14 +15,13 @@ FactoryGirl.define do
 
   factory :ride do
     title "My Ride"
-    total_seats 3
     origin "Jardim do Ingá"
     destiny "FGA Gama"
-    departure_time "11h"
+    total_seats 3
   end
 
   factory "vehicle" do
-    color "Blackk"
-    car_model "Nice cAr"
+    color "Black"
+    car_model "Celta"
   end
 end
