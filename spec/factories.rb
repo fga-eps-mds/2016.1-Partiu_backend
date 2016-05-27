@@ -10,7 +10,7 @@ FactoryGirl.define do
     title "My Ride"
     total_seats 3
     origin "Jardim do Ingá"
-    destiny "FGA Gama"
+    destination "FGA Gama"
     departure_time Time.new
   end
 
