@@ -47,15 +47,17 @@ describe "Users" do
     end
 
     it "should find user by facebook_id" do
-      user =  FactoryGirl.create(:user)
-      user["id"] = 5
+      user1 =  FactoryGirl.create(:user)
+      FactoryGirl.create(:user, email: "usertest@test.com")
+      user1["id"] = 5
       
       get "/api/users", {}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
-      expect(body[0]["facebook_id"]).to eq(user.facebook_id)
+      expect(body.length).to eq(2)
+      expect(body[0]["facebook_id"]).to eq(user1.facebook_id)
       
-      user_facebook = User.where(facebook_id: user.facebook_id)
+      user_facebook = User.where(facebook_id: user1.facebook_id)
       expect(user_facebook.empty?).to eq(false)
       expect(user_facebook.first.id).to eq(1)
      end

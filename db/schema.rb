@@ -55,30 +55,30 @@ ActiveRecord::Schema.define(version: 20160527005959) do
     t.string   "origin"
     t.string   "destiny"
     t.integer  "total_seats"
-    t.string   "route_distance"
-    t.string   "route_time"
+    t.string   "departure_time"
+    t.string   "return_time"
+    t.string   "distance"
+    t.time     "time"
+    t.date     "date"
+    t.boolean  "is_finished"
+    t.boolean  "is_subsistence_allowance"
+    t.boolean  "schedule_ride"
     t.text     "description"
-    t.boolean  "schedule_ride",            default: false
-    t.boolean  "is_finished",              default: false
-    t.boolean  "is_subsistence_allowance", default: false
     t.integer  "vehicle_id"
     t.integer  "driver_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "rides", ["driver_id"], name: "index_rides_on_driver_id"
   add_index "rides", ["vehicle_id"], name: "index_rides_on_vehicle_id"
 
   create_table "schedules", force: :cascade do |t|
-    t.date     "date"
+    t.integer  "day_of_week"
     t.date     "date_limit"
-    t.time     "departure_time"
-    t.time     "return_time"
-    t.boolean  "repeat",         default: false
     t.integer  "ride_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "schedules", ["ride_id"], name: "index_schedules_on_ride_id"

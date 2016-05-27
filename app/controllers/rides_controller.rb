@@ -1,7 +1,5 @@
 class RidesController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_action :set_user, only: [:edit, :update, :destroy]
-  before_action :set_ride, only: [:edit, :update, :destroy]
 
   def index
     if params[:user_id]
@@ -15,9 +13,14 @@ class RidesController < ApplicationController
 
   def show
     ride_id = params[:ride_id] || params[:id]
-    @ride = Ride.find(ride_id)
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @ride = user.driver.rides.find(ride_id)
+    else
+      @ride = Ride.find(ride_id)
+    end
     render json: @ride
-  end
+  end 
 
   def edit
   end
@@ -36,9 +39,8 @@ class RidesController < ApplicationController
    end 
    render json: ridesCreated.first
 =end
-    @ride = Ride.new(ride_params)
-    user = User.find(params[:user_id])
-    @ride.driver = user.driver
+    @user = User.find(params[:user_id])
+    @ride = @user.driver.rides.new(ride_params)
 
     if (@ride.save)
       render json: @ride
@@ -48,15 +50,29 @@ class RidesController < ApplicationController
   end
 
   def update
-    if (@ride.update(ride_params))
-      render json: @ride
-    else
-      render json: @ride.errors
+    ride_id = params[:ride_id] || params[:id]
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @ride = user.driver.rides.find(ride_id)
+       if (@ride.update_attributes(ride_params))
+         render json: @ride
+       else
+         render json: @ride.errors
+       end
     end
   end
 
   def destroy
-    @ride.destroy
+    ride_id = params[:ride_id] || params[:id]
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @ride = user.driver.rides.find(ride_id)
+       if (@ride.destroy)
+         render json: @ride
+       else
+         render json: @ride.errors
+       end
+    end
   end
 
   private
@@ -66,6 +82,7 @@ class RidesController < ApplicationController
   end
 
   def set_ride
+    @user = User.find(params[:user_id])
     @ride = @user.driver.rides.find(params[:id])
   end
 
@@ -73,11 +90,7 @@ class RidesController < ApplicationController
     params.require(:ride).permit(:title, :origin, :destiny, :route_distance, 
       :route_time, :total_seats, :is_finished, :is_subsistence_allowance, 
       :schedule_ride, :description, :driver, :vehicle, :passengers_name, 
-      :passengers_photo, :created_at, :updated_at)
-  end
-
-  def vehicle_params
-    params.require(:vehicle).permit(:id, :car_model, :color, :driver, :rides)
+      :passengers_photo)
   end
 
   def default_serializer_options
