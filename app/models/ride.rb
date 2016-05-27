@@ -11,7 +11,7 @@ class Ride < ActiveRecord::Base
   validates :total_seats, presence: true,
     numericality: {only_integer:true, greater_than_or_equal_to: 1, less_than_or_equal_to: 8}
 
-  validates :origin, :destiny, :departure_time, presence: true
+  validates :origin, :destination, :departure_time, presence: true
   validates :driver_id, presence: true
 
 end
