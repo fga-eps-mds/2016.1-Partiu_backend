@@ -39,8 +39,8 @@ class RidesController < ApplicationController
    end 
    render json: ridesCreated.first
 =end
-    @user = User.find(params[:user_id])
-    @ride = @user.driver.rides.new(ride_params)
+    user = User.find(params[:user_id])
+    @ride = user.driver.rides.new(ride_params)
 
     if (@ride.save)
       render json: @ride
@@ -76,15 +76,6 @@ class RidesController < ApplicationController
   end
 
   private
-
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
-  def set_ride
-    @user = User.find(params[:user_id])
-    @ride = @user.driver.rides.find(params[:id])
-  end
 
   def ride_params
     params.require(:ride).permit(:title, :origin, :destiny, :route_distance, 

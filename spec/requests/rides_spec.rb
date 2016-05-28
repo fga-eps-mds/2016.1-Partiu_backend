@@ -4,7 +4,7 @@ describe "Rides" do
     @user = FactoryGirl.create(:user)
   end
 
-  describe "users rides" do
+  describe "user rides" do
     it "should return all rides of given user" do
       10.times do
         FactoryGirl.create(:ride, driver: @user.driver)
@@ -119,7 +119,24 @@ describe "Rides" do
 
       expect(body["origin"]).not_to eq(ride.origin)
       expect(body["total_seats"]).not_to eq(ride.total_seats)
+    end
+    
+    it "Should not update ride if invalid params were givin" do
+      ride = FactoryGirl.create(:ride, driver: @user.driver)
 
+      get "/api/users/#{@user.id}/rides/#{ride.id}", {}, { "Accept" => "application/json" }
+      expect(response.status).to eq(200)
+      body = JSON.parse(response.body)
+
+      expect(body["title"]).to eq(ride.title)
+      expect(body["total_seats"]).to eq(ride.total_seats)
+
+      put "/api/users/#{@user.id}/rides/#{ride.id}", {ride: {title: "", total_seats: 2}, driver_id: @user.driver.id}, { "Accept" => "application/json" }
+      expect(response.status).to eq(200)
+      body = JSON.parse(response.body)
+
+      #expect(body["title"]).to eq(ride.errors.full_messages)
+      #expect(body["total_seats"]).to eq(ride.total_seats)
     end
   end
 
@@ -141,7 +158,6 @@ describe "Rides" do
       get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
       body = JSON.parse(response.body)
       expect(body.length).to eq(2)
-
     end
   end
 
