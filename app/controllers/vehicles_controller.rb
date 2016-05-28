@@ -1,5 +1,6 @@
 class VehiclesController < ApplicationController
   skip_before_filter :verify_authenticity_token
+  before_action :set_id, only: [:index, :show, :update, :destroy]
 
   def index
     if params[:user_id]
@@ -12,13 +13,18 @@ class VehiclesController < ApplicationController
   end
 
   def show
-    vehicle_id = params[:vehicle_id] || params[:id]
-    @vehicle = Vehicle.find(vehicle_id)
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @vehicle = user.driver.vehicles.find(@vehicle_id)
+    else
+      @vehicle = Vehicle.find(@vehicle_id)
+    end
     render json: @vehicle
   end
 
   def create
-    @vehicle = @user.driver.vehicles.new(vehicle_params)
+    user = User.find(params[:user_id])
+    @vehicle = user.driver.vehicles.new(vehicle_params)
 
     if (@vehicle.save)
       render json: @vehicle
@@ -28,18 +34,34 @@ class VehiclesController < ApplicationController
   end
 
   def update
-    if (@vehicle.update(vehicle_params))
-      render json: @vehicle
-    else
-      render json: @vehicle.errors
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @vehicle = user.driver.vehicles.find(@vehicle_id)
+       if (@vehicle.update_attributes(vehicle_params))
+         render json: @vehicle
+       else
+         render json: @vehicle.errors
+       end
     end
   end
 
   def destroy
-    @vehicle.destroy
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @vehicle = user.driver.vehicles.find(@vehicle_id)
+       if (@vehicle.destroy)
+         render json: @vehicle
+       else
+         render json: @vehicle.errors
+       end
+    end
   end
 
   private
+
+  def set_id
+    @vehicle_id = params[:vehicle_id] || params[:id]
+  end
 
   def vehicle_params
     params.require(:vehicle).permit(:id, :car_model, :color, :driver, :rides)

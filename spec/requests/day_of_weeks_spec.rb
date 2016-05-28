@@ -117,7 +117,11 @@ describe "Days_of_week" do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      #expect(body["value"]).to eq(day_of_week.value)
+      get "/api/users/#{@user.id}/rides/#{@ride.id}/schedules/#{@schedule.id}/day_of_weeks/#{day_of_week.id}", {}, { "Accept" => "application/json" }
+      expect(response.status).to eq(200)
+      body = JSON.parse(response.body)
+      
+      expect(body["value"]).to eq(day_of_week.value)
     end
 
     it "should can not update days of the week with repeated value" do

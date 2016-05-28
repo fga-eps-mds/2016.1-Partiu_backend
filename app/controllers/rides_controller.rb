@@ -1,5 +1,6 @@
 class RidesController < ApplicationController
   skip_before_filter :verify_authenticity_token
+  before_action :set_id, only: [:index, :show, :update, :destroy]
 
   def index
     if params[:user_id]
@@ -12,12 +13,11 @@ class RidesController < ApplicationController
   end
 
   def show
-    ride_id = params[:ride_id] || params[:id]
     if params[:user_id]
       user = User.find(params[:user_id])
-      @ride = user.driver.rides.find(ride_id)
+      @ride = user.driver.rides.find(@ride_id)
     else
-      @ride = Ride.find(ride_id)
+      @ride = Ride.find(@ride_id)
     end
     render json: @ride
   end 
@@ -47,10 +47,9 @@ class RidesController < ApplicationController
   end
 
   def update
-    ride_id = params[:ride_id] || params[:id]
     if (params[:user_id])
        user = User.find(params[:user_id])
-       @ride = user.driver.rides.find(ride_id)
+       @ride = user.driver.rides.find(@ride_id)
        if (@ride.update_attributes(ride_params))
          render json: @ride
        else
@@ -60,10 +59,9 @@ class RidesController < ApplicationController
   end
 
   def destroy
-    ride_id = params[:ride_id] || params[:id]
     if (params[:user_id])
        user = User.find(params[:user_id])
-       @ride = user.driver.rides.find(ride_id)
+       @ride = user.driver.rides.find(@ride_id)
        if (@ride.destroy)
          render json: @ride
        else
@@ -73,6 +71,10 @@ class RidesController < ApplicationController
   end
 
   private
+
+  def set_id
+    @ride_id = params[:ride_id] || params[:id]
+  end
 
   def ride_params
     params.require(:ride).permit(:title, :origin, :destination, :route_distance, 

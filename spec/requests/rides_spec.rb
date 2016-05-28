@@ -135,8 +135,12 @@ describe "Rides" do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      #expect(body["title"]).to eq(ride.errors.full_messages)
-      #expect(body["total_seats"]).to eq(ride.total_seats)
+      get "/api/users/#{@user.id}/rides/#{ride.id}", {}, { "Accept" => "application/json" }
+      expect(response.status).to eq(200)
+      body = JSON.parse(response.body)
+
+      expect(body["title"]).to eq(ride.title)
+      expect(body["total_seats"]).to eq(ride.total_seats)
     end
   end
 

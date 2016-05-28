@@ -140,7 +140,12 @@ describe "Schedules" do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      #expect(body["repeat"]).to eq(schedule.repeat)
+      
+      get "/api/users/#{@user.id}/rides/#{@ride.id}/schedules/#{schedule.id}", {}, { "Accept" => "application/json" }
+      expect(response.status).to eq(200)
+      body = JSON.parse(response.body)
+
+      expect(body["repeat"]).to eq(schedule.repeat)
     end
   end
 

@@ -20,6 +20,12 @@ RSpec.describe DayOfWeek, type: :model do
         subject["value"] = 1
         expect(DayOfWeek.new(subject)).to be_valid
       end
+      it "value must be numericality from 0 to 6" do
+        subject["value"] = 7
+        expect(DayOfWeek.new(subject)).not_to be_valid
+        subject["value"] = 1
+        expect(DayOfWeek.new(subject)).to be_valid
+      end
     end
     
     describe "day" do
