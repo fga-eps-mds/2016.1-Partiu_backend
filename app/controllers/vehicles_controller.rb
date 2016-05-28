@@ -1,6 +1,4 @@
 class VehiclesController < ApplicationController
-  before_action :set_user, only: [:create, :edit, :update, :destroy]
-  before_action :set_vehicle, only: [:edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
 
   def index
@@ -17,9 +15,6 @@ class VehiclesController < ApplicationController
     vehicle_id = params[:vehicle_id] || params[:id]
     @vehicle = Vehicle.find(vehicle_id)
     render json: @vehicle
-  end
-
-  def edit
   end
 
   def create
@@ -45,15 +40,6 @@ class VehiclesController < ApplicationController
   end
 
   private
-
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
-  def set_vehicle
-    vehicle_id = params[:vehicle_id] || params[:id]
-    @vehicle = @user.driver.vehicles.find(params[vehicle_id])
-  end
 
   def vehicle_params
     params.require(:vehicle).permit(:id, :car_model, :color, :driver, :rides)

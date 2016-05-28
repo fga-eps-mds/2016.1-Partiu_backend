@@ -22,9 +22,6 @@ class RidesController < ApplicationController
     render json: @ride
   end 
 
-  def edit
-  end
-
   def create
 =begin
   datas = params["datas"]

@@ -11,9 +11,6 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  def edit
-  end
-
   def create
     @user = User.new(user_params)
     @facebook_user = User.where(facebook_id: @user.facebook_id)
@@ -33,18 +30,6 @@ class UsersController < ApplicationController
     render json: user.id
   end
 
-  # def update
-  #   if (@user.update(user_params))
-  #     render json: @user
-  #   else
-  #     render json: @user.errors
-  #   end
-  # end
-  #
-  # def destroy
-  #   @user.destroy
-  # end
-  #
   private
 
   def set_user

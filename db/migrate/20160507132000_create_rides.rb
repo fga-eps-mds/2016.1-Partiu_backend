@@ -5,12 +5,15 @@ class CreateRides < ActiveRecord::Migration
       t.string :origin
       t.string :destiny
       t.integer :total_seats
-      t.string :route_distance
-      t.string :route_time
+      t.string :departure_time
+      t.string :return_time
+      t.string :distance
+      t.time :time
+      t.date :date
       t.text :description
-      t.boolean :schedule_ride, default: false
-      t.boolean :is_finished, default: false
-      t.boolean :is_subsistence_allowance, default: false
+      t.boolean :schedule_ride
+      t.boolean :is_finished
+      t.boolean :is_subsistence_allowance
       t.belongs_to :vehicle, index: true
       t.belongs_to :driver, index: true
 
