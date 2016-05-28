@@ -11,19 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528041909) do
-
-  create_table "day_of_weeks", force: :cascade do |t|
-    t.string   "day"
-    t.integer  "value"
-    t.time     "departure_time"
-    t.time     "return_time"
-    t.integer  "schedule_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "day_of_weeks", ["schedule_id"], name: "index_day_of_weeks_on_schedule_id"
+ActiveRecord::Schema.define(version: 20160528180704) do
 
   create_table "drivers", force: :cascade do |t|
     t.integer  "user_id"
@@ -54,12 +42,14 @@ ActiveRecord::Schema.define(version: 20160528041909) do
     t.string   "origin"
     t.string   "destination"
     t.integer  "total_seats"
+    t.time     "departure_time"
+    t.time     "return_time"
     t.string   "route_distance"
     t.string   "route_time"
+    t.date     "date"
+    t.text     "description"
     t.boolean  "is_finished",              default: false
     t.boolean  "is_subsistence_allowance", default: false
-    t.boolean  "schedule_ride",            default: false
-    t.text     "description"
     t.integer  "vehicle_id"
     t.integer  "driver_id"
     t.datetime "created_at",                               null: false
@@ -68,19 +58,6 @@ ActiveRecord::Schema.define(version: 20160528041909) do
 
   add_index "rides", ["driver_id"], name: "index_rides_on_driver_id"
   add_index "rides", ["vehicle_id"], name: "index_rides_on_vehicle_id"
-
-  create_table "schedules", force: :cascade do |t|
-    t.date     "date_limit"
-    t.integer  "ride_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.time     "departure_time"
-    t.time     "return_time"
-    t.date     "date"
-    t.boolean  "repeat",         default: false
-  end
-
-  add_index "schedules", ["ride_id"], name: "index_schedules_on_ride_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

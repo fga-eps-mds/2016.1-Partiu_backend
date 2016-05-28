@@ -1,6 +1,5 @@
 class Ride < ActiveRecord::Base
   has_and_belongs_to_many :passengers
-  has_many :schedules
   belongs_to :driver
   belongs_to :vehicle
 
@@ -14,7 +13,7 @@ class Ride < ActiveRecord::Base
 
   validates :origin, :destination, :route_distance, :route_time, presence: true
 
-  validates :is_finished, :is_subsistence_allowance, :schedule_ride, inclusion: {in: [true, false]}
+  validates :is_finished, :is_subsistence_allowance, inclusion: {in: [true, false]}
 
   validates :driver_id, presence: true
 

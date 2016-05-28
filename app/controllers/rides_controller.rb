@@ -23,19 +23,6 @@ class RidesController < ApplicationController
   end 
 
   def create
-=begin
-  datas = params["datas"]
-  ridesCreated = []
-  for data in datas
-    @ride = Ride.new(ride_params)
-    user = User.find(params[:user_id])
-    @ride.driver = user.driver
-    if (@ride.save)
-      ridesCreated.append(@ride)
-    end
-   end 
-   render json: ridesCreated.first
-=end
     user = User.find(params[:user_id])
     @ride = user.driver.rides.new(ride_params)
 
@@ -79,7 +66,7 @@ class RidesController < ApplicationController
   def ride_params
     params.require(:ride).permit(:title, :origin, :destination, :route_distance, 
       :route_time, :total_seats, :is_finished, :is_subsistence_allowance, 
-      :schedule_ride, :description, :driver, :vehicle, :passengers_name, 
+      :description, :driver, :vehicle, :passengers_name, 
       :passengers_photo)
   end
 
