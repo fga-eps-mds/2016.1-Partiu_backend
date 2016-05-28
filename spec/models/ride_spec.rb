@@ -100,14 +100,14 @@ RSpec.describe Ride, :type => :model do
       end
     end
 
-    describe "destiny" do
+    describe "destination" do
 
       subject { @other_ride_attrs }
 
       it "must be given" do
-        subject["destiny"] = nil
+        subject["destination"] = nil
         expect(Ride.new(subject)).not_to be_valid
-        subject["destiny"] = "Gama"
+        subject["destination"] = "Gama"
         expect(Ride.new(subject)).to be_valid
       end
     end
