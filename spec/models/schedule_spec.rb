@@ -4,7 +4,7 @@ RSpec.describe Schedule, type: :model do
   before do
     @user = FactoryGirl.create(:user)
     @ride = FactoryGirl.create(:ride, driver: @user.driver)
-    @schedule = FactoryGirl.create(:schedule)
+    @schedule = FactoryGirl.create(:schedule, ride: @ride)
   end
 
   it { expect(@schedule).to respond_to(:id, :date, :date_limit, :departure_time, :return_time, :repeat, :ride) }
@@ -41,5 +41,14 @@ RSpec.describe Schedule, type: :model do
       end
     end
 
+    describe "departure_time" do
+      subject { FactoryGirl.attributes_for(:schedule) }
+      it "departure_time must be given" do
+        subject["departure_time"] = nil
+        expect(Schedule.new(subject)).not_to be_valid
+        subject["departure_time"] = "11:35"
+        expect(Schedule.new(subject)).to be_valid
+      end
+    end
   end
 end

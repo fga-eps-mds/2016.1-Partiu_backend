@@ -119,7 +119,7 @@ describe "Schedules" do
 
       expect(body["repeat"]).to eq(schedule.repeat)
 
-      put "/api/users/#{@user.id}/rides/#{@ride.id}/schedules/#{schedule.id}", {schedule: {repeat: true}, ride: @ride.id}, { "Accept" => "application/json" }
+      put "/api/users/#{@user.id}/rides/#{@ride.id}/schedules/#{schedule.id}", {schedule: {repeat: true}, ride_id: @ride.id}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
@@ -136,7 +136,7 @@ describe "Schedules" do
 
       expect(body["repeat"]).to eq(schedule.repeat)
 
-      put "/api/users/#{@user.id}/rides/#{@ride.id}/schedules/#{schedule.id}", {schedule: {repeat: nil}, ride: @ride.id}, { "Accept" => "application/json" }
+      put "/api/users/#{@user.id}/rides/#{@ride.id}/schedules/#{schedule.id}", {schedule: {repeat: nil}, ride_id: @ride.id}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 

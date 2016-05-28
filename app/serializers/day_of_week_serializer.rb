@@ -1,3 +1,3 @@
 class DayOfWeekSerializer < ActiveModel::Serializer
-  attributes :id, :day, :checked, :value, :departure_time, :return_time, :schedule_id
+  attributes :id, :day, :value, :departure_time, :return_time, :schedule
 end

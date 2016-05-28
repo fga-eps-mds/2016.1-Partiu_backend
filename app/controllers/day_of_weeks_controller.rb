@@ -1,64 +1,83 @@
 class DayOfWeeksController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_action :set_user, only: [:index, :create, :show, :edit, :update, :destroy]
-  before_action :set_ride, only: [:index, :create, :show, :edit, :update, :destroy]
-  before_action :set_schedule, only: [:index, :create, :show, :edit, :update, :destroy]
-  before_action :set_day, only: [:show, :edit, :update, :destroy]
 
   def index
-    @days = @schedule.day_of_weeks.all
-    render json: @days
+    ride_id = params[:ride_id] || params[:id]
+    schedule_id = params[:schedule_id] || params[:id]
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      ride = user.driver.rides.find(ride_id)
+      schedules = ride.schedules.find(schedule_id)
+      @days_of_week = schedules.day_of_weeks.all
+    else
+      @days_of_week = DayOfWeek.all
+    end
+    render json: @days_of_week
   end
 
   def show
-    render json: @day
-  end
+    ride_id = params[:ride_id] || params[:id]
+    schedule_id = params[:schedule_id] || params[:id]
+    day_of_week_id = params[:day_of_week_id] || params[:id]
 
-  def edit
+    user = User.find(params[:user_id])
+    ride = user.driver.rides.find(ride_id)
+    schedule = ride.schedules.find(schedule_id)
+    @day_of_week = schedule.day_of_weeks.find(day_of_week_id)
+    render json: @day_of_week
   end
 
   def create
-    @day = @schedules.day_of_weeks.new(day_params)
+    user = User.find(params[:user_id])
+    ride = user.driver.rides.find(params[:ride_id])
+    schedule = ride.schedules.find(params[:schedule_id])
+    @day_of_week = schedule.day_of_weeks.new(day_of_week_params)
 
-    if(@day.save)
-      render json: @day
+    if(@day_of_week.save)
+      render json: @day_of_week
     else
-      render json: @day.errors
+      render json: @day_of_week.errors
     end
   end
 
   def update
-    if(@day.update(day_params))
-      render json: @day
-    else
-      render json: @day.erros
+    ride_id = params[:ride_id] || params[:id]
+    schedule_id = params[:schedule_id] || params[:id]
+    day_of_week_id = params[:day_of_week_id] || params[:id]
+    if (params[:user_id])
+      user = User.find(params[:user_id])
+      ride = user.driver.rides.find(ride_id)
+      schedule = ride.schedules.find(schedule_id)
+      @day_of_week = schedule.day_of_weeks.find(day_of_week_id)
+      if(@day_of_week.update_attributes(day_of_week_params))
+        render json: @day_of_week
+      else
+        render json: @day_of_week.errors
+      end
     end
   end
 
   def destroy
-    @day.destroy
+    ride_id = params[:ride_id] || params[:id]
+    schedule_id = params[:schedule_id] || params[:id]
+    day_of_week_id = params[:day_of_week_id] || params[:id]
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       ride = user.driver.rides.find(ride_id)
+       schedule = ride.schedules.find(schedule_id)
+       @day_of_week = schedule.day_of_weeks.find(day_of_week_id)
+       if (@day_of_week.destroy)
+         render json: @day_of_week
+       else
+         render json: @day_of_week.errors
+       end
+    end
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
-  def set_ride
-    @ride = @user.driver.rides.find(params[:ride_id])
-  end
-
-  def set_schedule
-    @schedule = @ride.schedules.find(params[:schedule_id])
-  end
-
-  def set_day
-    @day = @schedule.day_of_weeks.find(params[:id])
-  end
-
-  def day_params
-    params.require(:day_of_week).permit(:day, :checked, :value, :departure_time, :return_time)
+  def day_of_week_params
+    params.require(:day_of_week).permit(:value, :day, :departure_time, :return_time)
   end
 
   def default_serializer_options

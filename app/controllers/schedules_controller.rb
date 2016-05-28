@@ -26,9 +26,6 @@ class SchedulesController < ApplicationController
     render json: @schedule
   end
 
-  def edit
-  end
-
   def create
     user = User.find(params[:user_id])
     ride = user.driver.rides.find(params[:ride_id])

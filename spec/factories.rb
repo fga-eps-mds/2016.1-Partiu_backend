@@ -1,8 +1,9 @@
 FactoryGirl.define do
   factory :day_of_week do
+   day "quarta-feira"
    value 3
-   departure_time "11:45"
-   return_time "20:20"
+   departure_time "11:29"
+   return_time "20:00"
   end
   
   factory :schedule do
