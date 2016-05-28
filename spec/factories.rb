@@ -28,7 +28,7 @@ FactoryGirl.define do
   factory :ride do
     title "My Ride"
     origin "Jardim do Ingá"
-    destiny "FGA Gama"
+    destination "FGA Gama"
     total_seats 3
     route_distance "34km"
     route_time "30 minutos"
