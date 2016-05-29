@@ -7,7 +7,7 @@ RSpec.describe Ride, :type => :model do
     @other_ride_attrs = FactoryGirl.attributes_for(:ride, driver: @user.driver)
   end
 
-  it { expect(@ride).to respond_to(:description, :title, :origin, :total_seats, :is_finished, :is_subsistence_allowance, :is_only_departure, :driver_id, :vehicle_id) }
+  it { expect(@ride).to respond_to(:id, :title, :origin, :destination, :route_distance, :route_time, :total_seats, :is_finished, :is_subsistence_allowance, :description, :vehicle, :driver, :created_at, :updated_at) }
 
   describe "attributes:" do
 
@@ -17,9 +17,11 @@ RSpec.describe Ride, :type => :model do
       it "must be given" do
         subject["driver_id"] = nil
         expect(Ride.new(subject)).not_to be_valid
+        subject["driver_id"] = 1
+        expect(Ride.new(subject)).to be_valid
       end
     end
-
+    
     describe "title" do
 
       subject { @other_ride_attrs }
@@ -112,31 +114,54 @@ RSpec.describe Ride, :type => :model do
       end
     end
 
-    describe "departure_time" do
+    describe "route_distance" do
 
       subject { @other_ride_attrs }
 
       it "must be given" do
-        subject["departure_time"] = nil
+        subject["route_distance"] = nil
         expect(Ride.new(subject)).not_to be_valid
-        subject["departure_time"] = "08:00 AM"
+        subject["route_distance"] = "34km"
         expect(Ride.new(subject)).to be_valid
       end
-
     end
 
-    describe "return_time" do
+    describe "route_time" do
 
       subject { @other_ride_attrs }
 
-      it "isnt required" do
-        subject["return_time"] = nil
-        expect(Ride.new(subject)).to be_valid
-        subject["return_time"] = "10:00 AM"
+      it "must be given" do
+        subject["route_time"] = nil
+        expect(Ride.new(subject)).not_to be_valid
+        subject["route_time"] = "20 minutos"
         expect(Ride.new(subject)).to be_valid
       end
-
     end
+
+    describe "is_finished" do
+
+      subject { @other_ride_attrs }
+
+      it "must be given" do
+        subject["is_finished"] = nil
+        expect(Ride.new(subject)).not_to be_valid
+        subject["is_finished"] = false
+        expect(Ride.new(subject)).to be_valid
+      end
+    end
+
+    describe "is_subsistence_allowance" do
+
+      subject { @other_ride_attrs }
+
+      it "must be given" do
+        subject["is_subsistence_allowance"] = nil
+        expect(Ride.new(subject)).not_to be_valid
+        subject["is_subsistence_allowance"] = true
+        expect(Ride.new(subject)).to be_valid
+      end
+    end
+
   end
 
 end

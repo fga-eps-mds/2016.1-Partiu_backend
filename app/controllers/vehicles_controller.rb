@@ -1,22 +1,30 @@
 class VehiclesController < ApplicationController
-  before_action :set_user, only: [:index, :create, :show, :edit, :update, :destroy]
-  before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
+  before_action :set_id, only: [:index, :show, :update, :destroy]
 
   def index
-    @vehicles = @user.driver.vehicles.all
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @vehicles = user.driver.vehicles.all
+    else
+      @vehicles = Vehicle.all
+    end
     render json: @vehicles
   end
 
   def show
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @vehicle = user.driver.vehicles.find(@vehicle_id)
+    else
+      @vehicle = Vehicle.find(@vehicle_id)
+    end
     render json: @vehicle
   end
 
-  def edit
-  end
-
   def create
-    @vehicle = @user.driver.vehicles.new(vehicle_params)
+    user = User.find(params[:user_id])
+    @vehicle = user.driver.vehicles.new(vehicle_params)
 
     if (@vehicle.save)
       render json: @vehicle
@@ -26,25 +34,33 @@ class VehiclesController < ApplicationController
   end
 
   def update
-    if (@vehicle.update(vehicle_params))
-      render json: @vehicle
-    else
-      render json: @vehicle.errors
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @vehicle = user.driver.vehicles.find(@vehicle_id)
+       if (@vehicle.update_attributes(vehicle_params))
+         render json: @vehicle
+       else
+         render json: @vehicle.errors
+       end
     end
   end
 
   def destroy
-    @vehicle.destroy
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @vehicle = user.driver.vehicles.find(@vehicle_id)
+       if (@vehicle.destroy)
+         render json: @vehicle
+       else
+         render json: @vehicle.errors
+       end
+    end
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
-  def set_vehicle
-    @vehicle = @user.driver.vehicles.find(params[:id])
+  def set_id
+    @vehicle_id = params[:vehicle_id] || params[:id]
   end
 
   def vehicle_params

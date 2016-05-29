@@ -1,15 +1,15 @@
 describe "Users" do
   describe "users#index" do
     it "should return all users" do
-      user = FactoryGirl.create(:user)
+      user =  FactoryGirl.create(:user)
 
       get "/api/users", {}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      name = body[0]["name"]
-
       expect(body[0]["name"]).to eq(user.name)
+      expect(body[0]["id"]).to eq(user.id)
+      expect(body[0]["facebook_id"]).to eq(user.facebook_id)
       expect(body[0]["email"]).to eq(user.email)
       expect(body[0]["phone"]).to eq(user.phone)
       expect(body[0]["gender"]).to eq(user.gender)
@@ -45,5 +45,21 @@ describe "Users" do
       expect(User.find(find_user.id).driver).to be_valid
       expect(User.find(find_user.id).passenger).to be_valid
     end
+
+    it "should find user by facebook_id" do
+      user1 =  FactoryGirl.create(:user)
+      FactoryGirl.create(:user, email: "usertest@test.com")
+      user1["id"] = 5
+      
+      get "/api/users", {}, { "Accept" => "application/json" }
+      expect(response.status).to eq(200)
+      body = JSON.parse(response.body)
+      expect(body.length).to eq(2)
+      expect(body[0]["facebook_id"]).to eq(user1.facebook_id)
+      
+      user_facebook = User.where(facebook_id: user1.facebook_id)
+      expect(user_facebook.empty?).to eq(false)
+      expect(user_facebook.first.id).to eq(1)
+     end
   end
 end

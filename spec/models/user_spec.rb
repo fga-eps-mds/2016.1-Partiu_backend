@@ -22,7 +22,7 @@ RSpec.describe User, :type => :model do
 
   describe "attribute" do
 
-    subject { attr = FactoryGirl.attributes_for(:user, email: "anotherotheremail@gmail.com") }
+    subject { FactoryGirl.attributes_for(:user, email: "anotherotheremail@gmail.com") }
 
     describe "email" do
       it "must be given" do

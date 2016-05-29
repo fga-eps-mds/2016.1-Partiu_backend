@@ -12,10 +12,8 @@ RSpec.describe Vehicle, :type => :model do
 
   describe "if its driver is destroyed" do
     it "must be also destroyed" do
-      user_id = @user.id
       expect(@user).to be_valid
       expect(@vehicle).to be_valid
-      vehicle_id = @vehicle.id
       vehicle_count = Vehicle.all.count
       @user.destroy
       expect(Vehicle.all.count).to eq(vehicle_count-1)
@@ -24,7 +22,7 @@ RSpec.describe Vehicle, :type => :model do
 
   describe "attributes" do
 
-    subject { vehicle_attrs = FactoryGirl.attributes_for(:vehicle, driver: @user.driver) }
+    subject { FactoryGirl.attributes_for(:vehicle, driver: @user.driver) }
 
     describe "driver_id" do
 
