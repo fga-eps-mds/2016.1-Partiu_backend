@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527201950) do
+ActiveRecord::Schema.define(version: 20160529205752) do
 
   create_table "drivers", force: :cascade do |t|
     t.integer  "user_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160527201950) do
     t.string   "link_profile"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "auth_token"
   end
 
   create_table "vehicles", force: :cascade do |t|
