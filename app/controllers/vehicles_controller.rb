@@ -1,6 +1,7 @@
 class VehiclesController < ApplicationController
   before_action :set_user, only: [:index, :create, :show, :edit, :update, :destroy]
   before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
+  before_action :login_filter, only: [:index, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
 
   def index

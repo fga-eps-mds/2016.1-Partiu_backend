@@ -2,6 +2,7 @@ class RidesController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :set_user, only: [:edit, :update, :destroy]
   before_action :set_ride, only: [:edit, :update, :destroy]
+  before_action :login_filter
 
   def index
     if params[:user_id]
@@ -70,4 +71,6 @@ class RidesController < ApplicationController
   def default_serializer_options
     {root: false}
   end
+
+  
 end
