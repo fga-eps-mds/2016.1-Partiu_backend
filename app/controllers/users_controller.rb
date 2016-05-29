@@ -15,12 +15,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.passenger = Passenger.new
-    if (@user.save)
-      render json: @user
+    user = User.find_by(facebook_id: user_params[:facebook_id])
+    if user
+      render json: { token: user.fetch_auth_token! }, status: :ok
     else
-      render json: @user.errors
+      @user = User.new(user_params)
+      @user.passenger = Passenger.new
+      if (@user.save)
+        render json: { token: @user.fetch_auth_token! }, status: :ok
+      else
+        render json: @user.errors
+      end
     end
   end
 

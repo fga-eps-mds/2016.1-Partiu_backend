@@ -36,14 +36,13 @@ describe "Users" do
     end
 
     it "should create a driver and a passenger" do
+      driver_count = Driver.all.count
+      passenger_count = Passenger.all.count
       user = FactoryGirl.attributes_for(:user)
       post "/api/users", {user: user}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
-      json_response = JSON.parse(response.body)
-      id = json_response["id"]
-      find_user = User.find(id)
-      expect(User.find(find_user.id).driver).to be_valid
-      expect(User.find(find_user.id).passenger).to be_valid
+      expect(Driver.all.count).to eq(driver_count+1)
+      expect(Passenger.all.count).to eq(passenger_count+1)
     end
   end
 end

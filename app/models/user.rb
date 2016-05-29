@@ -16,4 +16,10 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :facebook_id, presence: true
   validates :photo_url, presence: true
+
+  def fetch_auth_token!
+    self.auth_token = SecureRandom.base64(50)
+    self.save!
+    self.auth_token
+  end
 end
