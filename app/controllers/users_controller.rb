@@ -32,7 +32,11 @@ class UsersController < ApplicationController
 
   def get_user_id
     user = User.find_by(facebook_id: params[:facebook_id])
-    render json: user.id
+    if user
+      render json: user.id
+    else
+      render json: User.new
+    end
   end
 
   private
