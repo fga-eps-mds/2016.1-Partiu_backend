@@ -64,7 +64,7 @@ class VehiclesController < ApplicationController
   end
 
   def vehicle_params
-    params.require(:vehicle).permit(:id, :car_model, :color, :driver, :rides)
+    params.require(:vehicle).permit(:id, :car_model, :color, :description)
   end
 
   def default_serializer_options
