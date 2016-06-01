@@ -17,22 +17,6 @@ describe "Vehicles" do
     end
   end
 
-  describe "rides index" do
-    it "should return all vehicles" do
-      other_user = FactoryGirl.create(:user, email: "anotheremail@gmail.com")
-
-      5.times do
-        FactoryGirl.create(:vehicle, driver: @user.driver)
-        FactoryGirl.create(:vehicle, driver: other_user.driver)
-      end
-
-      get "/api/vehicles", {}, { "Accept" => "application/json" }
-      expect(response.status).to eq(200)
-      body = JSON.parse(response.body)
-      expect(body.length).to eq(10)
-    end
-  end
-
   describe "vehicles#create" do
     it "should create a new vehicle if valid params are given" do
       vehicle = FactoryGirl.attributes_for(:vehicle)
@@ -73,21 +57,6 @@ describe "Vehicles" do
       body = JSON.parse(response.body)
       
       expect(body.length).to eq(0)
-    end
-  end
-
-  describe "vehicles#show" do
-    it "should show vehicle of any user" do
-      other_user = FactoryGirl.create(:user, email: "anotheremail@gmail.com")
-
-      vehicle1 = FactoryGirl.create(:vehicle, driver: @user.driver)
-      vehicle2 = FactoryGirl.create(:vehicle, driver: other_user.driver)
-
-      get "/api/vehicles/#{vehicle1.id}", {}, { "Accept" => "application/json" }
-      expect(response.status).to eq(200)
-
-      get "/api/vehicles/#{vehicle2.id}", {}, { "Accept" => "application/json" }
-      expect(response.status).to eq(200)
     end
   end
 

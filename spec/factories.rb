@@ -28,5 +28,6 @@ FactoryGirl.define do
   factory :vehicle do
     color "Black"
     car_model "Celta"
+    description "Carro de placa tal"
   end
 end
