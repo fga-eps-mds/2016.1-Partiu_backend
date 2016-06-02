@@ -10,5 +10,5 @@ Rails.application.routes.draw do
     get 'rides', to: 'rides#index'
     get 'rides/:id', to: 'rides#show'
   end
-
+  get 'privacy', to: 'privacy#privacy_page'
 end
