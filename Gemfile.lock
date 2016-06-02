@@ -105,6 +105,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    materialize-sass (0.97.6)
+      sass (~> 3.3)
     mime-types (3.0)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0221)
@@ -230,11 +232,13 @@ DEPENDENCIES
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
+  materialize-sass (~> 0.97.6)
   passenger (>= 5.0.25)
   pg
   rack-cors
   rails (= 4.2.5.2)
   rspec-rails
+  sass (~> 3.4, >= 3.4.22)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simplecov
@@ -245,4 +249,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.12.4
+   1.12.5
