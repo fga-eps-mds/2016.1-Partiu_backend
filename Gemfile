@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
+# Materialize runtine dependecie
+gem 'sass', '~> 3.4', '>= 3.4.22'
+# Stylesheet gem - Materialize-Sass
+gem 'materialize-sass', '~> 0.97.6'
 # Connection different domain between back-end rails and front-end ionic
 gem 'rack-cors', :require => 'rack/cors'
 # A gem for delegate attributes and associations of belongs_to and has_one!
