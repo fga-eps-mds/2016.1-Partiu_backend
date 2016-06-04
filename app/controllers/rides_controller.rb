@@ -66,7 +66,7 @@ class RidesController < ApplicationController
   def ride_params
     params.require(:ride).permit(:title, :origin, :destination, :route_distance, 
       :route_time, :date, :total_seats, :departure_time, :return_time, :is_finished, 
-      :is_subsistence_allowance, :description, :driver, :vehicle)
+      :is_subsistence_allowance, :description, :driver, :vehicle_id)
   end
 
   def default_serializer_options
