@@ -186,7 +186,5 @@ RSpec.describe Ride, :type => :model do
         expect(Ride.new(subject)).to be_valid
       end
     end
-
   end
-
 end

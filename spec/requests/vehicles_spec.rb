@@ -1,5 +1,4 @@
 describe "Vehicles" do
-
   before do
     @user = FactoryGirl.create(:user)
   end
@@ -10,7 +9,7 @@ describe "Vehicles" do
         FactoryGirl.create(:vehicle, driver: @user.driver)
       end
 
-      get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       expect(body.length).to eq(10)
@@ -22,7 +21,7 @@ describe "Vehicles" do
       vehicle = FactoryGirl.attributes_for(:vehicle)
       old_count = Vehicle.count
 
-      get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(0)
@@ -32,7 +31,7 @@ describe "Vehicles" do
 
       expect(Vehicle.count).to eq(old_count+1)
 
-      get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(1)
@@ -42,7 +41,7 @@ describe "Vehicles" do
       vehicle = FactoryGirl.attributes_for(:vehicle)
       old_count = Vehicle.count
 
-      get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(0)
@@ -53,7 +52,7 @@ describe "Vehicles" do
 
       expect(Vehicle.count).to eq(old_count)
 
-      get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(0)
@@ -65,9 +64,9 @@ describe "Vehicles" do
       other_user = FactoryGirl.create(:user, email: "anotheremail@gmail.com")
       vehicle1 = FactoryGirl.create(:vehicle, driver: @user.driver)
       vehicle2 = FactoryGirl.create(:vehicle, driver: other_user.driver)
-      get "/api/users/#{@user.id}/vehicles/#{vehicle1.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles/#{vehicle1.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
-      get "/api/users/#{other_user.id}/vehicles/#{vehicle2.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{other_user.id}/vehicles/#{vehicle2.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
     end
   end
@@ -76,7 +75,7 @@ describe "Vehicles" do
     it "Should update vehicle of the logged user" do
       vehicle = FactoryGirl.create(:vehicle, driver: @user.driver)
 
-      get "/api/users/#{@user.id}/vehicles/#{vehicle.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles/#{vehicle.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
@@ -94,7 +93,7 @@ describe "Vehicles" do
     it "Should not update vehicle if invalid params were givin" do
       vehicle = FactoryGirl.create(:vehicle, driver: @user.driver)
 
-      get "/api/users/#{@user.id}/vehicles/#{vehicle.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles/#{vehicle.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
@@ -105,7 +104,7 @@ describe "Vehicles" do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      get "/api/users/#{@user.id}/vehicles/#{vehicle.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles/#{vehicle.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
@@ -120,7 +119,7 @@ describe "Vehicles" do
       FactoryGirl.create(:vehicle, driver: @user.driver)
       FactoryGirl.create(:vehicle, driver: @user.driver)
 
-      get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       expect(body.length).to eq(3)
@@ -128,7 +127,7 @@ describe "Vehicles" do
       delete "/api/users/#{@user.id}/vehicles/#{vehicle1.id}"
       expect(response.status).to eq(200)
 
-      get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/vehicles", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
       expect(body.length).to eq(2)
     end

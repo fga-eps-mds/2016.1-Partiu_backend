@@ -1,5 +1,5 @@
 class Vehicle < ActiveRecord::Base
-  has_many :rides, dependent: :destroy
+  has_many :rides
   belongs_to :driver
 
   validates :car_model, presence: true, length: {minimum: 2, maximum: 20}

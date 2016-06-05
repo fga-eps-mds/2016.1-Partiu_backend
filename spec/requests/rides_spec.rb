@@ -1,5 +1,4 @@
 describe "Rides" do
-
   before do
     @user = FactoryGirl.create(:user)
   end
@@ -9,7 +8,7 @@ describe "Rides" do
       10.times do
         FactoryGirl.create(:ride, driver: @user.driver)
       end
-      get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       expect(body.length).to eq(10)
@@ -25,7 +24,7 @@ describe "Rides" do
         FactoryGirl.create(:ride, driver: other_user.driver)
       end
 
-      get "/api/rides", {}, { "Accept" => "application/json" }
+      get "/api/rides", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       expect(body.length).to eq(10)
@@ -37,7 +36,7 @@ describe "Rides" do
       ride = FactoryGirl.attributes_for(:ride)
       old_count = Ride.count
 
-      get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(0)
@@ -47,7 +46,7 @@ describe "Rides" do
 
       expect(Ride.count).to eq(old_count+1)
 
-      get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(1)
@@ -57,7 +56,7 @@ describe "Rides" do
       ride = FactoryGirl.attributes_for(:ride)
       old_count = Ride.count
 
-      get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(0)
@@ -68,7 +67,7 @@ describe "Rides" do
 
       expect(Ride.count).to eq(old_count)
 
-      get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
 
       expect(body.length).to eq(0)
@@ -82,10 +81,10 @@ describe "Rides" do
       ride1 = FactoryGirl.create(:ride, driver: @user.driver)
       ride2 = FactoryGirl.create(:ride, driver: other_user.driver)
 
-      get "/api/rides/#{ride1.id}", {}, { "Accept" => "application/json" }
+      get "/api/rides/#{ride1.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
 
-      get "/api/rides/#{ride2.id}", {}, { "Accept" => "application/json" }
+      get "/api/rides/#{ride2.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
     end
   end
@@ -95,9 +94,9 @@ describe "Rides" do
       other_user = FactoryGirl.create(:user, email: "anotheremail@gmail.com")
       ride1 = FactoryGirl.create(:ride, driver: @user.driver)
       ride2 = FactoryGirl.create(:ride, driver: other_user.driver)
-      get "/api/users/#{@user.id}/rides/#{ride1.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides/#{ride1.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
-      get "/api/users/#{other_user.id}/rides/#{ride2.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{other_user.id}/rides/#{ride2.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
     end
   end
@@ -106,7 +105,7 @@ describe "Rides" do
     it "Should update ride of the logged user" do
       ride = FactoryGirl.create(:ride, driver: @user.driver)
 
-      get "/api/users/#{@user.id}/rides/#{ride.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides/#{ride.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
@@ -124,7 +123,7 @@ describe "Rides" do
     it "Should not update ride if invalid params were givin" do
       ride = FactoryGirl.create(:ride, driver: @user.driver)
 
-      get "/api/users/#{@user.id}/rides/#{ride.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides/#{ride.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
@@ -135,7 +134,7 @@ describe "Rides" do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      get "/api/users/#{@user.id}/rides/#{ride.id}", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides/#{ride.id}", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
@@ -151,7 +150,7 @@ describe "Rides" do
       FactoryGirl.create(:ride, driver: @user.driver)
       FactoryGirl.create(:ride, driver: @user.driver)
 
-      get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       expect(body.length).to eq(3)
@@ -159,10 +158,9 @@ describe "Rides" do
       delete "/api/users/#{@user.id}/rides/#{ride1.id}"
       expect(response.status).to eq(200)
 
-      get "/api/users/#{@user.id}/rides", {}, { "Accept" => "application/json" }
+      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
       body = JSON.parse(response.body)
       expect(body.length).to eq(2)
     end
   end
-
 end
