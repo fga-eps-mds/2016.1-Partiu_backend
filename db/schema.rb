@@ -42,8 +42,6 @@ ActiveRecord::Schema.define(version: 20160531112212) do
     t.string   "origin"
     t.string   "destination"
     t.integer  "total_seats"
-    t.time     "departure_time"
-    t.time     "return_time"
     t.boolean  "is_finished",              default: false
     t.boolean  "is_subsistence_allowance", default: false
     t.text     "description"
@@ -54,6 +52,8 @@ ActiveRecord::Schema.define(version: 20160531112212) do
     t.string   "route_time"
     t.string   "route_distance"
     t.date     "date"
+    t.time     "departure_time"
+    t.time     "return_time"
   end
 
   add_index "rides", ["driver_id"], name: "index_rides_on_driver_id"
