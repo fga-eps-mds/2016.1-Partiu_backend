@@ -7,8 +7,6 @@ describe "Users" do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      name = body[0]["name"]
-
       expect(body[0]["name"]).to eq(user.name)
       expect(body[0]["email"]).to eq(user.email)
       expect(body[0]["phone"]).to eq(user.phone)

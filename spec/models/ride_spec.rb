@@ -22,7 +22,7 @@ RSpec.describe Ride, :type => :model do
         expect(Ride.new(subject)).to be_valid
       end
     end
-    
+
     describe "title" do
 
       subject { @other_ride_attrs }

@@ -20,7 +20,7 @@ class RidesController < ApplicationController
       @ride = Ride.find(@ride_id)
     end
     render json: @ride
-  end 
+  end
 
   def create
     user = User.find(params[:user_id])
@@ -73,6 +73,5 @@ class RidesController < ApplicationController
     {root: false}
   end
 
-  
 end
 

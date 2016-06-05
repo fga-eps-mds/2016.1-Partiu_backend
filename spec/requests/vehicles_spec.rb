@@ -24,17 +24,17 @@ describe "Vehicles" do
 
       get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
       body = JSON.parse(response.body)
-      
+
       expect(body.length).to eq(0)
-      
+
       post "/api/users/#{@user.id}/vehicles", {vehicle: vehicle, driver_id: @user.driver.id}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
-      
+
       expect(Vehicle.count).to eq(old_count+1)
-      
+
       get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
       body = JSON.parse(response.body)
-      
+
       expect(body.length).to eq(1)
     end
 
@@ -44,18 +44,18 @@ describe "Vehicles" do
 
       get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
       body = JSON.parse(response.body)
-      
+
       expect(body.length).to eq(0)
-      
+
       vehicle["car_model"] = nil
       post "/api/users/#{@user.id}/vehicles", {vehicle: vehicle, driver_id: @user.driver.id}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
-      
+
       expect(Vehicle.count).to eq(old_count)
-      
+
       get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
       body = JSON.parse(response.body)
-      
+
       expect(body.length).to eq(0)
     end
   end
@@ -90,7 +90,7 @@ describe "Vehicles" do
       expect(body["car_model"]).not_to eq(vehicle.car_model)
       expect(body["color"]).not_to eq(vehicle.color)
     end
-    
+
     it "Should not update vehicle if invalid params were givin" do
       vehicle = FactoryGirl.create(:vehicle, driver: @user.driver)
 
@@ -113,18 +113,18 @@ describe "Vehicles" do
       expect(body["color"]).to eq(vehicle.color)
     end
   end
-  
+
   describe "vehicles#destroy" do
     it "Should destroy vehicle of the logged user" do
       vehicle1 = FactoryGirl.create(:vehicle, driver: @user.driver)
       FactoryGirl.create(:vehicle, driver: @user.driver)
       FactoryGirl.create(:vehicle, driver: @user.driver)
-      
+
       get "/api/users/#{@user.id}/vehicles", {}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       expect(body.length).to eq(3)
-      
+
       delete "/api/users/#{@user.id}/vehicles/#{vehicle1.id}"
       expect(response.status).to eq(200)
 
