@@ -5,9 +5,9 @@ class RidesController < ApplicationController
   def index
     if params[:user_id]
       user = User.find(params[:user_id])
-      @rides = user.driver.rides.all
+      @rides = user.driver.rides.where(Ride.arel_table[:date].gt(DateTime.now))
     else
-      @rides = Ride.all
+      @rides = Ride.where(Ride.arel_table[:date].gt(DateTime.now))
     end
     render json: @rides
   end
