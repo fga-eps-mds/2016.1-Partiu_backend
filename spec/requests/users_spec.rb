@@ -7,8 +7,6 @@ describe "Users" do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
 
-      name = body[0]["name"]
-
       expect(body[0]["name"]).to eq(user.name)
       expect(body[0]["email"]).to eq(user.email)
       expect(body[0]["phone"]).to eq(user.phone)
@@ -36,14 +34,13 @@ describe "Users" do
     end
 
     it "should create a driver and a passenger" do
+      driver_count = Driver.all.count
+      passenger_count = Passenger.all.count
       user = FactoryGirl.attributes_for(:user)
       post "/api/users", {user: user}, { "Accept" => "application/json" }
       expect(response.status).to eq(200)
-      json_response = JSON.parse(response.body)
-      id = json_response["id"]
-      find_user = User.find(id)
-      expect(User.find(find_user.id).driver).to be_valid
-      expect(User.find(find_user.id).passenger).to be_valid
+      expect(Driver.all.count).to eq(driver_count+1)
+      expect(Passenger.all.count).to eq(passenger_count+1)
     end
   end
 end

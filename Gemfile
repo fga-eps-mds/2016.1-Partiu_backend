@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
+# Materialize runtine dependecie
+gem 'sass', '~> 3.4', '>= 3.4.22'
+# Stylesheet gem - Materialize-Sass
+gem 'materialize-sass', '~> 0.97.6'
 # Connection different domain between back-end rails and front-end ionic
 gem 'rack-cors', :require => 'rack/cors'
 # A gem for delegate attributes and associations of belongs_to and has_one!
@@ -23,6 +27,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'coveralls', require: false
+
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
@@ -32,14 +38,19 @@ group :development, :test do
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
+end
+
+group :test do
+  gem "codeclimate-test-reporter"
 end
 
 group :production do
-  gem 'unicorn'
+  gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
   gem 'pg'
 end

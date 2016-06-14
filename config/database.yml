@@ -14,6 +14,7 @@ test:
 
 production:
   <<: *default
-  database: rails_project_production
-  username: rails
+  adapter: postgresql
+  database: partiu_production
+  username: partiu
   password: <%= ENV['APP_DATABASE_PASSWORD'] %>

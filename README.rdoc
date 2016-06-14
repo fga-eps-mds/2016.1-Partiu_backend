@@ -2,8 +2,7 @@
 
 {<img src="https://codeclimate.com/github/mdsgpp2016/backend/badges/gpa.svg" />}[https://codeclimate.com/github/mdsgpp2016/backend]
 {<img src="https://codeclimate.com/github/mdsgpp2016/backend/badges/coverage.svg" />}[https://codeclimate.com/github/mdsgpp2016/backend/coverage]
-
-== Descrição
+{<img src="https://travis-ci.org/mdsgpp2016/backend.svg?branch=devel" alt="Build Status" />}[https://travis-ci.org/mdsgpp2016/backend]
 
 Aplicativo multiplataforma que permite pessoas com amigos em comum combinarem caronas.
 

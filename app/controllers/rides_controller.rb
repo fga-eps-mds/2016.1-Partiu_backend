@@ -1,7 +1,6 @@
 class RidesController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_action :set_user, only: [:edit, :update, :destroy]
-  before_action :set_ride, only: [:edit, :update, :destroy]
+  before_action :set_id, only: [:index, :show, :update, :destroy]
 
   def index
     if params[:user_id]
@@ -14,18 +13,18 @@ class RidesController < ApplicationController
   end
 
   def show
-    ride_id = params[:ride_id] || params[:id]
-    @ride = Ride.find(ride_id)
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      @ride = user.driver.rides.find(@ride_id)
+    else
+      @ride = Ride.find(@ride_id)
+    end
     render json: @ride
   end
 
-  def edit
-  end
-
   def create
-    @ride = Ride.new(ride_params)
     user = User.find(params[:user_id])
-    @ride.driver = user.driver
+    @ride = user.driver.rides.new(ride_params)
 
     if (@ride.save)
       render json: @ride
@@ -35,39 +34,44 @@ class RidesController < ApplicationController
   end
 
   def update
-    if (@ride.update(ride_params))
-      render json: @ride
-    else
-      render json: @ride.errors
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @ride = user.driver.rides.find(@ride_id)
+       if (@ride.update_attributes(ride_params))
+         render json: @ride
+       else
+         render json: @ride.errors
+       end
     end
   end
 
   def destroy
-    @ride.destroy
+    if (params[:user_id])
+       user = User.find(params[:user_id])
+       @ride = user.driver.rides.find(@ride_id)
+       if (@ride.destroy)
+         render json: @ride
+       else
+         render json: @ride.errors
+       end
+    end
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
-  def set_ride
-    @ride = @user.driver.rides.find(params[:id])
+  def set_id
+    @ride_id = params[:ride_id] || params[:id]
   end
 
   def ride_params
-    params.require(:ride).permit(:title, :origin, :destiny, :total_seats, :departure_time,
-    :return_time, :is_finished, :is_subsistence_allow, :is_subsistence_allowance,
-    :is_only_departure, :description, :vehicle, :passengers_name, :passengers_photo,
-    :created_at, :driver_id, :updated_at)
-  end
-
-  def vehicle_params
-    params.require(:vehicle).permit(:id, :car_model, :color, :driver, :rides)
+    params.require(:ride).permit(:title, :origin, :destination, :route_distance, 
+      :route_time, :date, :total_seats, :departure_time, :return_time, :is_finished, 
+      :is_subsistence_allowance, :description, :driver, :vehicle_id)
   end
 
   def default_serializer_options
     {root: false}
   end
+
 end
+
