@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get 'static_pages/home'
+
   scope "/api" do
     get 'get_user_id', to: 'users#get_user_id'
   	get 'forbidden', to: 'application#forbidden'
@@ -10,5 +13,7 @@ Rails.application.routes.draw do
     get 'rides', to: 'rides#index'
     get 'rides/:id', to: 'rides#show'
   end
-  get 'privacy', to: 'privacy#privacy_page'
+
+  get "privacy", to: "static_pages#privacy"
+  root "static_pages#home"
 end
