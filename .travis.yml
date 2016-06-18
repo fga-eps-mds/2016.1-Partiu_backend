@@ -8,7 +8,6 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_a1e1fbe313e3_key -iv $encrypted_a1e1fbe313e3_iv
     -in deploy-key.enc -out ~/.ssh/id_rsa -d
 script:
-  - bundle exec rspec
   - export PR=https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo `curl -s $PR | jq -r .head.ref`; fi)
 after_success:

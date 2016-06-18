@@ -45,6 +45,14 @@ class RidesController < ApplicationController
     end
   end
 
+  def insert_passenger
+    @ride = Ride.find(params[:ride_id])
+    @passenger = Passenger.find(params[:passenger_id])
+    @ride.passengers.push @passenger
+    @ride.save
+    render json: @ride
+  end
+
   def destroy
     if (params[:user_id])
        user = User.find(params[:user_id])
