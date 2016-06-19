@@ -11,5 +11,6 @@
 /log/*
 !/log/.keep
 /tmp
-/coverage
+/coverage/*
 /db/*.sqlite3
+!/coverage/.last_run.json
