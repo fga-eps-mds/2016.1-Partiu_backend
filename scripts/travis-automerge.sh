@@ -1,34 +1,37 @@
 #!/bin/bash -e
 
-: "${BRANCHES_TO_MERGE_REGEX?}" "${BRANCH_TO_MERGE_INTO?}"
-: "${GITHUB_SECRET_TOKEN?}" "${GITHUB_REPO?}"
+# Auto merge only in PR
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
+  printf 'Automerging is just allowed in pull requests\n'
+else
+  printf 'TRAVIS_BRANCH=%s, PR=%s, BRANCH=%s\n' "$TRAVIS_BRANCH" "$PR" "$BRANCH"
 
-export GIT_COMMITTER_EMAIL='travis@travis'
-export GIT_COMMITTER_NAME='Travis CI'
+  printf 'Automerging...\n'
 
-if ! grep -q "$BRANCHES_TO_MERGE_REGEX" <<< "$TRAVIS_BRANCH"; then
-    printf "Current branch %s doesn't match regex %s, exiting\\n" \
-        "$TRAVIS_BRANCH" "$BRANCHES_TO_MERGE_REGEX" >&2
-    exit 0
+  : "${GITHUB_SECRET_TOKEN?}" "${TRAVIS_REPO_SLUG?}"
+
+  # Since Travis does a partial checkout, we need to get the whole thing
+  repo_temp=$(mktemp -d)
+  git clone "https://github.com/$TRAVIS_REPO_SLUG" "$repo_temp"
+
+  # shellcheck disable=SC2164
+  cd "$repo_temp"
+
+  printf 'Checking out %s\n' "$TRAVIS_BRANCH"
+  git checkout "$TRAVIS_BRANCH"
+
+  git config user.name "Travis CI"
+  git config user.email travis@ci.com
+
+  printf 'Merging %s\n' "$BRANCH"
+  git merge --no-ff --no-edit origin/"$BRANCH"
+
+  push_uri="https://$GITHUB_SECRET_TOKEN@github.com/$TRAVIS_REPO_SLUG"
+
+  printf 'Pushing to %s\n' "$TRAVIS_BRANCH"
+  git push "$push_uri" "$TRAVIS_BRANCH"
+
+  printf 'Deleting branch %s\n' "$BRANCH"
+  git push "$push_uri" :"$BRANCH"
+
 fi
-
-# Since Travis does a partial checkout, we need to get the whole thing
-repo_temp=$(mktemp -d)
-git clone "https://github.com/$GITHUB_REPO" "$repo_temp"
-
-# shellcheck disable=SC2164
-cd "$repo_temp"
-
-printf 'Checking out %s\n' "$BRANCH_TO_MERGE_INTO" >&2
-git checkout "$BRANCH_TO_MERGE_INTO"
-
-printf 'Merging %s\n' "$TRAVIS_COMMIT" >&2
-git merge --ff-only "$TRAVIS_COMMIT"
-
-printf 'Pushing to %s\n' "$GITHUB_REPO" >&2
-
-push_uri="https://$GITHUB_SECRET_TOKEN@github.com/$GITHUB_REPO"
-
-# Redirect to /dev/null to avoid secret leakage
-git push "$push_uri" "$BRANCH_TO_MERGE_INTO" >/dev/null 2>&1
-git push "$push_uri" :"$TRAVIS_BRANCH" >/dev/null 2>&1
