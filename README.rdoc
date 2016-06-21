@@ -1,6 +1,6 @@
 = Partiu
 
-{{img src="https://img.shields.io/badge/license-MIT-blue.svg" />[https://raw.githubusercontent.com/fga-gpp-mds/2016.1-Partiu_backend/devel/LICENSE]
+{<img src="https://img.shields.io/badge/license-MIT-blue.svg" />}[https://raw.githubusercontent.com/fga-gpp-mds/2016.1-Partiu_backend/devel/LICENSE]
 {<img src="https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_backend/badges/gpa.svg" />}[https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_backend]
 {<img src="https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_backend/badges/coverage.svg" />}[https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_backend/coverage]
 {<img src="https://travis-ci.org/fga-gpp-mds/2016.1-Partiu_backend.svg?branch=devel" alt="Build Status" />}[https://travis-ci.org/fga-gpp-mds/2016.1-Partiu_backend]
