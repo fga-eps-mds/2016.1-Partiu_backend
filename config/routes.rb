@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
     get 'rides', to: 'rides#index'
     get 'rides/:id', to: 'rides#show'
+    get 'vehicles/:id', to: 'vehicles#show'
   end
 
   get "privacy", to: "static_pages#privacy"

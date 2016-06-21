@@ -6,10 +6,8 @@ class VehiclesController < ApplicationController
     if params[:user_id]
       user = User.find(params[:user_id])
       @vehicles = user.driver.vehicles.all
-    else
-      @vehicles = Vehicle.all
+      render json: @vehicles
     end
-    render json: @vehicles
   end
 
   def show
@@ -52,6 +50,7 @@ class VehiclesController < ApplicationController
        if (@vehicle.destroy)
          render json: @vehicle
        else
+         @vehicle.errors.add(:vehicle, "Cannot delete vehicle")
          render json: @vehicle.errors
        end
     end
