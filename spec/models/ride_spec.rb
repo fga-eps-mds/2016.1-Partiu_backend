@@ -7,7 +7,7 @@ RSpec.describe Ride, :type => :model do
     @other_ride_attrs = FactoryGirl.attributes_for(:ride, driver: @user.driver)
   end
 
-  it { expect(@ride).to respond_to(:id, :title, :origin, :destination, :route_distance, :route_time, :date, :total_seats, 
+  it { expect(@ride).to respond_to(:id, :title, :origin, :destination, :route_distance, :route_time, :date, :total_seats,
   :departure_time, :return_time, :is_finished, :is_subsistence_allowance, :description, :vehicle, :driver, :created_at, :updated_at) }
 
   describe "attributes:" do
@@ -180,6 +180,18 @@ RSpec.describe Ride, :type => :model do
       subject { @other_ride_attrs }
 
       it "must be given" do
+        subject["is_subsistence_allowance"] = nil
+        expect(Ride.new(subject)).not_to be_valid
+        subject["is_subsistence_allowance"] = true
+        expect(Ride.new(subject)).to be_valid
+      end
+    end
+
+    describe "passengers" do
+
+      subject { @other_ride_attrs }
+
+      it "must be added to ride" do
         subject["is_subsistence_allowance"] = nil
         expect(Ride.new(subject)).not_to be_valid
         subject["is_subsistence_allowance"] = true
