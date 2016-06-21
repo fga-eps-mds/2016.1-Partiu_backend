@@ -142,25 +142,4 @@ describe "Rides" do
       expect(body["total_seats"]).to eq(ride.total_seats)
     end
   end
-
-
-  describe "rides#destroy" do
-    it "Should destroy ride of the logged user" do
-      ride1 = FactoryGirl.create(:ride, driver: @user.driver)
-      FactoryGirl.create(:ride, driver: @user.driver)
-      FactoryGirl.create(:ride, driver: @user.driver)
-
-      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
-      expect(response.status).to eq(200)
-      body = JSON.parse(response.body)
-      expect(body.length).to eq(3)
-
-      delete "/api/users/#{@user.id}/rides/#{ride1.id}"
-      expect(response.status).to eq(200)
-
-      get "/api/users/#{@user.id}/rides", { "Accept" => "application/json" }
-      body = JSON.parse(response.body)
-      expect(body.length).to eq(2)
-    end
-  end
 end
