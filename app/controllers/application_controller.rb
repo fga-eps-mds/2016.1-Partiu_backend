@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def login_filter
-    if User.find_by_auth_token request.env['HTTP_AUTHORIZATION']
+    if User.find_by_auth_token request.headers['HTTP_AUTHORIZATION']
     else
       redirect_to forbidden_path
     end
