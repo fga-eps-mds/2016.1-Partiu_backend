@@ -1,6 +1,6 @@
 class RidesController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_action :set_id, only: [:index, :show, :update, :destroy]
+  before_action :set_id, only: [:index, :show, :update]
 
   def index
     if params[:user_id]
@@ -45,16 +45,12 @@ class RidesController < ApplicationController
     end
   end
 
-  def destroy
-    if (params[:user_id])
-       user = User.find(params[:user_id])
-       @ride = user.driver.rides.find(@ride_id)
-       if (@ride.destroy)
-         render json: @ride
-       else
-         render json: @ride.errors
-       end
-    end
+  def insert_passenger
+    @ride = Ride.find(params[:ride_id])
+    @passenger = Passenger.find(params[:passenger_id])
+    @ride.passengers.push @passenger
+    @ride.save
+    render json: @ride
   end
 
   private
@@ -64,8 +60,8 @@ class RidesController < ApplicationController
   end
 
   def ride_params
-    params.require(:ride).permit(:title, :origin, :destination, :route_distance, 
-      :route_time, :date, :total_seats, :departure_time, :return_time, :is_finished, 
+    params.require(:ride).permit(:title, :origin, :destination, :route_distance,
+      :route_time, :date, :total_seats, :departure_time, :return_time, :is_finished,
       :is_subsistence_allowance, :description, :driver, :vehicle_id)
   end
 
@@ -74,4 +70,3 @@ class RidesController < ApplicationController
   end
 
 end
-

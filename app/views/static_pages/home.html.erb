@@ -1,111 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-    <title>Parallax Template - Materialize</title>
-    <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  </head>
-  <body>
-    <div class="navbar-fixed">
-      <nav class="white" role="navigation">
-        <div class="nav-wrapper container">
-          <a id="logo-container" href="/" class="brand-logo">Partiu</a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="https://play.google.com/apps/testing/com.mdsgpp.partiuapp" class="waves-effect waves-light btn">Baixe agora</a></li>
-          </ul>
-          <ul id="nav-mobile" class="side-nav">
-            <li><a href="https://play.google.com/apps/testing/com.mdsgpp.partiuapp" class="waves-effect waves-light btn">Baixe agora</a></li>
-          </ul>
-          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-      </nav>
-    </div>
-    <div id="index-banner" class="parallax-container">
-      <div class="section no-pad-bot">
-        <div class="container">
-          <br><br>
-          <h1 class="header center teal-text text-lighten-2">Partiu!</h1>
-          <div class="row center">
-            <h5 class="header col s12 light">Aplicativo que permite pessoas com amigos em comum combinarem caronas</h5>
-          </div>
-          <br><br>
-        </div>
+<div id="index-banner" class="parallax-container">
+  <div class="section no-pad-bot">
+    <div class="container row">
+      <br><br>
+      <h1 class="header center white-text">Partiu!</h1>
+      <div class="row center">
+        <h5 class="header col s12 white-text">Aplicativo que permite pessoas com amigos em comum combinarem caronas.</h5>
       </div>
-      <div class="parallax"><img src="https://github.com/mdsgpp2016/backend/blob/static-pages/app/assets/images/background1.jpg?raw=true" alt="Unsplashed background img 1"></div>
+      <br><br>
     </div>
+  </div>
+  <div class="parallax"><%= image_tag 'background1.jpg' %></div>
+</div>
+<div class="container">
+  <br><br>
+  <div class="section">
     <div class="container">
-      <div class="section">
-        <!--   Icon Section   -->
-        <div class="row">
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center brown-text"><i class="material-icons">stay_current_portrait</i></h2>
-              <h5 class="center">Plataformas</h5>
+      <center><%= image_tag 'logo.png', alt: "logo", height: "250", width: "250" %></center>
+    </div>
+    <!--   Icon Section   -->
+    <div class="row">
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center blue-text"><i class="material-icons">stay_current_portrait</i></h2>
+          <h5 class="center">Plataformas</h5>
 
-              <p class="light">O "Partiu!" está sendo desenvolvido para as plataformas mobile iOS e <a href="https://play.google.com/apps/testing/com.mdsgpp.partiuapp">Android</a>.</p>
-            </div>
-          </div>
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center brown-text"><i class="material-icons">person_pin</i></h2>
-              <h5 class="center">Repositório</h5>
-              <p class="light">O "Partiu!" é uma aplicação de código livre, o mesmo está disponível no <a href="https://github.com/mdsgpp2016">github</a>.</p>
-            </div>
-          </div>
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center brown-text"><i class="material-icons">info_outline</i></h2>
-              <h5 class="center">Política de privacidade</h5>
-
-              <p class="light">A política de privacidade do "Partiu!" está disponível 
-              <a href="/privacy">aqui</a>.</p>
-            </div>
-          </div>
+          <p class="light">O "Partiu!" está sendo desenvolvido para as plataformas mobile iOS e <a href="https://play.google.com/apps/testing/com.mdsgpp.partiuapp">Android</a>.</p>
         </div>
+      </div>
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center blue-text"><i class="material-icons">dashboard</i></h2>
+          <h5 class="center">Repositório</h5>
+          <p class="light">O "Partiu!" é uma aplicação de código livre, o mesmo está disponível no <a href="https://github.com/fga-gpp-mds">github</a>.</p>
+        </div>
+      </div>
+      <div class="col s12 m4">
+        <div class="icon-block">
+          <h2 class="center blue-text"><i class="material-icons">info_outline</i></h2>
+          <h5 class="center">Política de privacidade</h5>
 
+          <p class="light">A política de privacidade do "Partiu!" está disponível
+          <a href="/privacy">aqui</a>.</p>
+        </div>
       </div>
     </div>
-    <footer class="page-footer teal">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">Partiu</h5>
-            <p class="grey-text text-lighten-4">Somos uma equipe de desenvolvimento formados por estudantes da Universidade de Brasília - FGA dentro das disciplinas de Métodos de Desenvolvimento de Software (MDS) e Gestão de Portifólio e Produtos de Software (GPP).</p>
-          </div>
-          <div class="col l3 s12">
-            <h5 class="white-text">MDS</h5>
-            <ul>
-              <li><a class="white-text" href="https://github.com/danmoura17">Daniel Moura</a></li>
-              <li><a class="white-text" href="https://github.com/eduqg">Eduardo Gomes</a></li>
-              <li><a class="white-text" href="https://github.com/sconetto">João Pedro</a></li>
-              <li><a class="white-text" href="https://github.com/VictorArnaud">Victor Arnaud</a></li>
-              <li><a class="white-text" href="https://github.com/miguelpimentel">Miguel Pimentel</a></li>
-            </ul>
-          </div>
-          <div class="col l3 s12">
-            <h5 class="white-text">GPP</h5>
-            <ul>
-              <li><a class="white-text" href="https://github.com/DylanGuedes">Dylan Guedes</a></li>
-              <li><a class="white-text" href="https://github.com/vital-edu">Eduardo Vital</a></li>
-              <li><a class="white-text" href="https://github.com/gutioliveira">Gustavo Cavalcante</a></li>
-              <li><a class="white-text" href="https://github.com/wiltonsr">Wilton Rodrigues</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="center footer-copyright">
-        <div class="container">
-          2016 Partiu! -  <a class="brown-text text-lighten-3" href="https://github.com/mdsgpp2016/backend/blob/devel/LICENSE">Licença MIT</a>
-        </div>
-      </div>
-    </footer>
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="js/init.js"></script>
-  </body>
-</html>
+  </div>
+</div>
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="js/init.js"></script>

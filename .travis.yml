@@ -1,16 +1,18 @@
 language: ruby
 rvm:
-- 2.3.1
-addons:
-  code_climate:
-    repo_token: 5655cc143b1d2c8e2a16c93c3e76f7d2907ba751950da6e623f23ba413ad5e7b
+  - 2.3.1
 before_install:
-- openssl aes-256-cbc -K $encrypted_a1e1fbe313e3_key -iv $encrypted_a1e1fbe313e3_iv
-  -in deploy-key.enc -out ~/.ssh/id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_a1e1fbe313e3_key -iv $encrypted_a1e1fbe313e3_iv
+    -in deploy-key.enc -out ~/.ssh/id_rsa -d
+script:
+  - export RAILS_ENV=test
+  - bundle exec rake db:create db:schema:load db:test:prepare
+  - bundle exec rspec --format documentation
+  - export PR=https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo `curl -s $PR | jq -r .head.ref`; fi)
 after_success:
-- bundle exec cap production deploy
-- BRANCHES_TO_MERGE_REGEX='' BRANCH_TO_MERGE_INTO=devel GITHUB_REPO=mdsgpp2016/backend
-  scripts/travis-automerge.sh
+  - scripts/travis-automerge.sh
+  - bundle exec cap production deploy BRANCH=devel
 env:
   global:
     secure: APLlvVYD72iCsYxsYGyPV5cIS9PlVNizGb05topunQM4ErTXcQWBlQSSHQEcm4Yg5+TB0QsL1k01IfjmBtYLM68AZYeVvU4vHkxjkjYwaR3LMtZIGPUbdWxU50WbWndZWa4GwEMUQFWtd0mXxetRkhcUQUAdHJEFmuNc3dqmrpILikJtwY6qDqLZpiAC7wxriAyPVAfnghB5Ve9LoI1P3A+tZNo/L2cmEqVaiQAWChGAiVD6xohZOsa4AczqOBrRYWuXR62Nf4vWLqosslifG05kVlD0SOROHFqHF9AK06UPlfyq+p8WhL6IqTNT/4CpncsS5tEKmTjzvd2NdxnSRVg1GsYgO0h7gLLYsilNNM5CHxh98vwr7ZeiKkGGEsTEiCzld6+sy8+WHuwYPRK5p9eAsJoAa29jC0czJnYj/QrrkaJx1r0D1Lb3Nj6Pj10gObPaCEHeB8s8rj9esE1qkWtLoUs/HFqr3aKHHlyzJ30/shJc1pQ2BimgORnmsUliyF8gf8PCcJ68mZeH9Ds6mUY9qlcAPYhorsdEWy6mbAh2DKFTF++iNQnlvx0n1sgnJt9l+og/HCFttABJXGxJlB43dtP0lyBnyqcvmjWMO9I7mEEZEzreaM379nazFeev3ixb7Z5JEjhJflX1rGrX7gpKj1M4TlXE4a1QDLtP8gc=
